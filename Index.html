@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemeHub</title>
+    <style>
+        /* Reset stylów */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(270deg, #4a1304, #17004e, #1f033f, #011b47);
+            background-size: 800% 800%;
+            animation: gradientBG 20s ease infinite;
+            padding: 20px;
+        }
+
+        /* Animacja gradientu tła */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Logo sekcja */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .logo-section h1 {
+            font-size: 4em;
+            font-weight: bold;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo-section h1::before,
+        .logo-section h1::after {
+            content: '🎭';
+            position: relative;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .logo-section h1::before {
+            margin-right: 15px;
+        }
+
+        .logo-section h1::after {
+            margin-left: 15px;
+        }
+
+        .logo-section .tagline {
+            font-size: 1.3em;
+            font-style: italic;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+            opacity: 0.95;
+        }
+
+        /* Główny kontener */
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 50px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 1s ease forwards;
+            max-width: 500px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        /* Nagłówek */
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+
+        /* Podtytuł */
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        /* Przyciski */
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: #fff;
+            background-color: #ff6f61;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .btn:hover {
+            background-color: #ff4a3a;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Przycisk About Us na dole */
+        .about-us-container {
+            margin-top: 20px;
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        .about-us-btn {
+            text-decoration: none;
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 12px 30px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .about-us-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Modal (domyślnie ukryty) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            overflow: auto;
+        }
+
+        /* Pokazanie modala po kliknięciu linku */
+        .modal:target {
+            display: block;
+        }
+
+        /* Modal content */
+        .modal-content {
+            background-color: rgba(24, 25, 26, 0.95);
+            margin: 10% auto;
+            padding: 30px 25px;
+            border-radius: 16px;
+            max-width: 500px;
+            color: #dacece;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .modal-content p {
+            margin-bottom: 15px;
+        }
+
+        .modal-content ul {
+            text-align: left;
+            margin: 20px auto;
+            max-width: 350px;
+        }
+
+        .modal-content li {
+            margin-bottom: 10px;
+            padding-left: 35px;
+            position: relative;
+        }
+
+        .modal-content li:nth-child(1)::before {
+            content: '📅';
+            position: absolute;
+            left: 0;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .modal-content li:nth-child(2)::before {
+            content: '🚀';
+            position: absolute;
+            left: 0;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .modal-content li:nth-child(3)::before {
+            content: '👥';
+            position: absolute;
+            left: 0;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* Close button */
+        .modal .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            text-decoration: none;
+            font-size: 1.5em;
+            color: #dacece;
+            transition: color 0.3s ease;
+        }
+
+        .modal .close:hover {
+            color: #ff6f61;
+        }
+
+        /* Responsywność */
+        @media (max-width: 768px) {
+            .logo-section h1 {
+                font-size: 3em;
+            }
+
+            .logo-section .tagline {
+                font-size: 1.1em;
+            }
+
+            .container {
+                padding: 40px 25px;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            p {
+                font-size: 1em;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+
+            .modal-content {
+                margin: 20% auto;
+                padding: 25px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-section h1 {
+                font-size: 2.2em;
+            }
+
+            .logo-section .tagline {
+                font-size: 1em;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            p {
+                font-size: 0.9em;
+            }
+
+            .buttons {
+                gap: 15px;
+            }
+
+            .modal-content {
+                margin: 25% auto;
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Logo Section -->
+<div class="logo-section">
+    <h1>MEMEHUB</h1>
+    <p class="tagline">Memy na każdy dzień</p>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+    <h2>Shitpost</h2>
+    <p>Every day memes!</p>
+
+    <div class="buttons">
+        <a href="publikuj.html" class="btn">Publikuj mema</a>
+        <a href="zobacz.html" class="btn">Zobacz opublikowane memy</a>
+        <a href="losowy.html" class="btn">Losowy mem</a>
+    </div>
+</div>
+
+<!-- About Us Button -->
+<div class="about-us-container">
+    <a href="#aboutModal" class="about-us-btn">About Us</a>
+</div>
+
+<!-- Modal -->
+<div id="aboutModal" class="modal">
+    <div class="modal-content">
+        <a href="#" class="close">✕</a>
+        <h3>About Us</h3>
+        <p>Witaj w naszej niesamowitej aplikacji MemeHub! 😎</p>
+        <p>Tworzymy miejsce pełne śmiechu, gdzie każdy może odkryć nowe memy i dzielić się nimi z innymi.</p>
+        <ul>
+            <li>Codzienna dawka zabawy</li>
+            <li>Łatwe przeglądanie i publikowanie memów</li>
+            <li>Przyjazne dla wszystkich użytkowników</li>
+        </ul>
+        <p>Dołącz do naszej społeczności i baw się dobrze!</p>
+    </div>
+</div>
+</body>
+</html>
