@@ -5,29 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MemeHub</title>
     <style>
-        /* Reset stylów */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Body */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #fff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
             background: linear-gradient(270deg, #4a1304, #17004e, #1f033f, #011b47);
             background-size: 800% 800%;
             animation: gradientBG 20s ease infinite;
-            padding: 20px;
         }
 
-        /* Animacja gradientu tła */
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -44,7 +38,59 @@
             100% { transform: translateY(0); opacity: 1; }
         }
 
-        /* Logo sekcja */
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ff6f61;
+            text-decoration: none;
+        }
+
+        .navbar-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: #fff;
+            background-color: rgba(255, 111, 97, 0.8);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-btn:hover {
+            background-color: #ff6f61;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        }
+
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
         .logo-section {
             text-align: center;
             margin-bottom: 30px;
@@ -84,7 +130,6 @@
             opacity: 0.95;
         }
 
-        /* Główny kontener */
         .container {
             text-align: center;
             background-color: rgba(0, 0, 0, 0.5);
@@ -99,20 +144,17 @@
             margin-bottom: 20px;
         }
 
-        /* Nagłówek */
         h2 {
             font-size: 2.5em;
             margin-bottom: 10px;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
         }
 
-        /* Podtytuł */
         p {
             font-size: 1.2em;
             margin-bottom: 30px;
         }
 
-        /* Przyciski */
         .buttons {
             display: flex;
             flex-direction: column;
@@ -136,7 +178,6 @@
             box-shadow: 0 8px 15px rgba(0,0,0,0.3);
         }
 
-        /* Przycisk About Us na dole */
         .about-us-container {
             margin-top: 20px;
             animation: fadeIn 1.5s ease forwards;
@@ -161,7 +202,6 @@
             box-shadow: 0 8px 15px rgba(0,0,0,0.3);
         }
 
-        /* Modal (domyślnie ukryty) */
         .modal {
             display: none;
             position: fixed;
@@ -175,12 +215,10 @@
             overflow: auto;
         }
 
-        /* Pokazanie modala po kliknięciu linku */
         .modal:target {
             display: block;
         }
 
-        /* Modal content */
         .modal-content {
             background-color: rgba(24, 25, 26, 0.95);
             margin: 10% auto;
@@ -207,6 +245,7 @@
             text-align: left;
             margin: 20px auto;
             max-width: 350px;
+            list-style: none;
         }
 
         .modal-content li {
@@ -239,7 +278,6 @@
             pointer-events: none;
         }
 
-        /* Close button */
         .modal .close {
             position: absolute;
             top: 15px;
@@ -254,8 +292,66 @@
             color: #ff6f61;
         }
 
-        /* Responsywność */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff6f61;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-btn:hover {
+            background-color: #ff4a3a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        }
+
         @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 20px;
+            }
+
+            .navbar-brand {
+                font-size: 1.2em;
+            }
+
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+
             .logo-section h1 {
                 font-size: 3em;
             }
@@ -288,8 +384,30 @@
         }
 
         @media (max-width: 480px) {
+            .navbar {
+                padding: 10px 15px;
+            }
+
+            .navbar-brand {
+                font-size: 1em;
+            }
+
+            .navbar-buttons {
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 6px 12px;
+                font-size: 0.85em;
+            }
+
             .logo-section h1 {
                 font-size: 2.2em;
+            }
+
+            .logo-section h1::before,
+            .logo-section h1::after {
+                margin: 0 8px;
             }
 
             .logo-section .tagline {
@@ -320,30 +438,36 @@
     </style>
 </head>
 <body>
-<!-- Logo Section -->
-<div class="logo-section">
-    <h1>MEMEHUB</h1>
-    <p class="tagline">Memy na każdy dzień</p>
-</div>
+<nav class="navbar">
+    <a href="#" class="navbar-brand">MemeHub</a>
+    <div class="navbar-buttons">
+        <a href="#loginModal" class="nav-btn">Loguj</a>
+        <a href="#registerModal" class="nav-btn">Rejestruj</a>
+    </div>
+</nav>
 
-<!-- Main Container -->
-<div class="container">
-    <h2>Shitpost</h2>
-    <p>Every day memes!</p>
+<div class="main-wrapper">
+    <div class="logo-section">
+        <h1>MEMEHUB</h1>
+        <p class="tagline">Memy na każdy dzień</p>
+    </div>
 
-    <div class="buttons">
-        <a href="publikuj.html" class="btn">Publikuj mema</a>
-        <a href="zobacz.html" class="btn">Zobacz opublikowane memy</a>
-        <a href="losowy.html" class="btn">Losowy mem</a>
+    <div class="container">
+        <h2>Shitpost</h2>
+        <p>Every day memes!</p>
+
+        <div class="buttons">
+            <a href="publikuj.html" class="btn">Publikuj mema</a>
+            <a href="zobacz.html" class="btn">Zobacz opublikowane memy</a>
+            <a href="losowy.html" class="btn">Losowy mem</a>
+        </div>
+    </div>
+
+    <div class="about-us-container">
+        <a href="#aboutModal" class="about-us-btn">About Us</a>
     </div>
 </div>
 
-<!-- About Us Button -->
-<div class="about-us-container">
-    <a href="#aboutModal" class="about-us-btn">About Us</a>
-</div>
-
-<!-- Modal -->
 <div id="aboutModal" class="modal">
     <div class="modal-content">
         <a href="#" class="close">✕</a>
@@ -356,6 +480,51 @@
             <li>Przyjazne dla wszystkich użytkowników</li>
         </ul>
         <p>Dołącz do naszej społeczności i baw się dobrze!</p>
+    </div>
+</div>
+
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <a href="#" class="close">✕</a>
+        <h3>Logowanie</h3>
+        <form>
+            <div class="form-group">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" placeholder="Wprowadź email" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Hasło:</label>
+                <input type="password" id="login-password" placeholder="Wprowadź hasło" required>
+            </div>
+            <button type="submit" class="form-btn">Zaloguj się</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Rejestracja -->
+<div id="registerModal" class="modal">
+    <div class="modal-content">
+        <a href="#" class="close">✕</a>
+        <h3>Rejestracja</h3>
+        <form>
+            <div class="form-group">
+                <label for="register-username">Nazwa użytkownika:</label>
+                <input type="text" id="register-username" placeholder="Wybierz nazwę" required>
+            </div>
+            <div class="form-group">
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" placeholder="Wprowadź email" required>
+            </div>
+            <div class="form-group">
+                <label for="register-password">Hasło:</label>
+                <input type="password" id="register-password" placeholder="Wprowadź hasło" required>
+            </div>
+            <div class="form-group">
+                <label for="register-password-confirm">Potwierdź hasło:</label>
+                <input type="password" id="register-password-confirm" placeholder="Powtórz hasło" required>
+            </div>
+            <button type="submit" class="form-btn">Zarejestruj się</button>
+        </form>
     </div>
 </div>
 </body>
