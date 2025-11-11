@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Read app</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(270deg, #84d4f4, #97dff1, #89aee0, #7bd6db, #1c2a48);
+            background-size: 300% 300%;
+            animation: gradientBG 50s ease infinite;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            width: 80px;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.25), transparent);
+        }
+
+        body::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(0,0,0,0.25), transparent);
+        }
+
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        nav .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            white-space: nowrap;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px 20px;
+            }
+
+            nav .logo {
+                font-size: 1.3em;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            nav ul li a {
+                font-size: 0.95em;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 15px 20px;
+                gap: 12px;
+            }
+
+            nav .logo {
+                font-size: 1.4em;
+            }
+
+            nav ul {
+                flex-direction: row;
+                gap: 15px;
+                margin-top: 0;
+            }
+
+            nav ul li a {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 400px) {
+            nav ul {
+                gap: 12px;
+            }
+
+            nav ul li a {
+                font-size: 0.85em;
+            }
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 120px;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+            font-size: 2.5em;
+        }
+
+        p {
+            text-align: center;
+            font-size: 1.1em;
+            color: #fff;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            position: relative;
+            text-align: center;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {transform: translateY(-30px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            color: #0078D7;
+        }
+
+        .modal-content p {
+            color: #555;
+        }
+
+        .close {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close:hover {
+            color: #0078D7;
+        }
+
+        .linkedin-btn {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #0077B5;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        .linkedin-btn:hover {
+            background-color: #005582;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+
+
+        .card p {
+            font-size: 0.95em;
+            color: #555;
+            text-align: left;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+                margin-top: 140px;
+            }
+
+            p {
+                font-size: 1em;
+            }
+        }
+        @media (max-width: 500px) {
+            .title-with-logo {
+                flex-direction: column;
+                gap: 8px;
+                margin-top: 100px;
+            }
+        }
+
+
+        .title-with-logo {
+            display: flex;
+            flex-direction: row; /* logo i tekst obok siebie */
+            align-items: center; /* wyrównanie w pionie */
+            justify-content: center; /* wyśrodkowanie całości */
+            margin-top: 120px;
+            gap: 16px; /* minimalny odstęp między logo a napisem */
+        }
+
+        .title-with-logo h1 {
+            margin: 0; /* usuwa dodatkowe marginesy */
+            color: #fff;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+        }
+
+        .app-logo {
+            width: 120px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .app-logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+
+
+        .project-description {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 25px 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .project-description h2 {
+            margin-top: 0;
+            color: #0078D7;
+        }
+
+        .project-description h3 {
+            margin-bottom: 10px;
+            color: #0078D7;
+        }
+
+        .project-description ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+
+        .project-description ul li {
+            margin-bottom: 6px;
+        }
+
+        .project-description a {
+            color: #0078D7;
+            text-decoration: none;
+        }
+
+        .project-description a:hover {
+            text-decoration: underline;
+        }
+
+        .project-description code {
+            background-color: #0b0b0b;
+            padding: 2px 5px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        p {
+            text-align: center;
+            font-size: 1.1em;
+            color: #fff;  /* <- to powoduje, że wszystkie <p> są białe */
+        }
+
+        .project-description p {
+            color: #333; /* ciemny tekst dla lepszej czytelności */
+        }
+
+        .code {
+            color: #ffffff;
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .screenshots-grid .grid-item {
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border-radius: 15px;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: #fff;
+            font-weight: bold;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .screenshots-grid .grid-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+        }
+
+        .screenshots-grid .grid-label {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1em;
+            background: rgba(0,0,0,0.4);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        /* Przykładowe tła dla poszczególnych screenów */
+        .book1 { background-image: url('index.png'); background-size: cover; background-position: center; }
+        .book2 { background-image: url('allBooks.png'); background-size: cover; background-position: center; }
+        .book3 { background-image: url('updatePages.png'); background-size: cover; background-position: center; }
+        .book4 { background-image: url('deleteBook.png'); background-size: cover; background-position: center; }
+
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            max-width: 90%;
+            max-height: 90%;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            position: relative;
+            text-align: center;
+            overflow: auto;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 12px;
+        }
+
+        .modal .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .modal .close:hover {
+            color: #0078D7;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">Marian Wachała</div>
+    <ul>
+        <li><a id="openAbout">About</a></li>
+        <li><a href="https://www.linkedin.com/in/marian-wachala" target="_blank">LinkedIn</a></li>
+        <li><a href="index.html" target="_blank">Back</a></li>
+    </ul>
+</nav>
+
+<div class="title-with-logo">
+    <a href="https://github.com/Maniekw12/ToReadApp" target="_blank">
+        <img src="to-read.png" alt="To Read App Logo" class="app-logo">
+    </a>
+    <h1>To Read App</h1>
+</div>
+<p>Author: <strong>Marian Wachała</strong></p>
+
+<div class="project-description">
+    <h2>About ToReadApp</h2>
+    <p>
+        The application is created for people who want to track their progress in reading books. It allows you to create your 'To Read' list, where you can prioritize which book is the most important for you and manage which books are next in the queue to read. It also stores the books you have already read, so you can track how many books you have completed.
+    </p>
+
+    <h3>📌 Features of ToReadApp</h3>
+    <ul>
+        <li>🔍 View all books – browse the entire book collection</li>
+        <li>📘 View read books – see which books you've already read</li>
+        <li>📕 View unread books – check what's still on your reading list</li>
+        <li>🔎 Show book by ID – quickly find a specific book by its ID</li>
+        <li>🗑️ Delete a book – remove books you no longer need</li>
+        <li>➕ Add a new book – expand your library</li>
+        <li>✏️ Update a book – edit book details</li>
+        <li>📘 Update a progress – change the number of pages you've already read</li>
+    </ul>
+
+    <h3>⚙️ Application Setup & Running</h3>
+    <p><strong>Requirements:</strong></p>
+    <ul>
+        <li>Docker must be installed</li>
+        <li>Ports 8000 (Frontend), 8080 (Backend) and 5432 (database) must be free</li>
+    </ul>
+
+    <p><strong>Build the Application:</strong><br>
+        <code class="code">docker compose up --build</code>
+    </p>
+
+    <p><strong>Run the Application:</strong><br>
+        <code class="code">docker compose up</code>
+    </p>
+
+    <p><strong>Stop the Application:</strong><br>
+        <code class="code">docker compose down</code>
+    </p>
+
+    <p>Once everything is set up and running, the application will be available at: <a href="http://localhost:8000" target="_blank">http://localhost:8000</a></p>
+</div>
+
+
+
+
+<div id="aboutModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>About Me</h2>
+        <p>Hello! My name is Marian Wachała and I create applications and web projects.
+            I am a 3rd year Applied Computer Science student and currently working as a Software Engineer Intern at Grid Dynamics.
+            I enjoy turning ideas into digital reality — whether that's a web app, mobile tool, or interactive experience.</p>
+    </div>
+</div>
+
+
+<section class="screenshots-grid">
+    <div class="grid-item book1" onclick="openModal('book1Modal')">
+        <span class="grid-label">Home Screen</span>
+    </div>
+    <div class="grid-item book2" onclick="openModal('book2Modal')">
+        <span class="grid-label">All books</span>
+    </div>
+    <div class="grid-item book3" onclick="openModal('book3Modal')">
+        <span class="grid-label">Update books</span>
+    </div>
+    <div class="grid-item book4" onclick="openModal('book4Modal')">
+        <span class="grid-label">Delete book</span>
+    </div>
+</section>
+
+
+<!-- Modale dla screenshotów -->
+<div id="book1Modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('book1Modal')">&times;</span>
+        <img src="index.png" alt="Home Screen" style="width: 100%; border-radius: 12px;">
+    </div>
+</div>
+
+<div id="book2Modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('book2Modal')">&times;</span>
+        <img src="allBooks.png" alt="To Read List" style="width: 100%; border-radius: 12px;">
+    </div>
+</div>
+
+<div id="book3Modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('book3Modal')">&times;</span>
+        <img src="updatePages.png" alt="Book Details" style="width: 100%; border-radius: 12px;">
+    </div>
+</div>
+
+<div id="book4Modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('book4Modal')">&times;</span>
+        <img src="deleteBook.png" alt="Progress Tracker" style="width: 100%; border-radius: 12px;">
+    </div>
+</div>
+
+
+<script>
+    const modal = document.getElementById("aboutModal");
+    const openBtn = document.getElementById("openAbout");
+    const closeBtn = document.querySelector(".close");
+
+    openBtn.onclick = function() {
+        modal.style.display = "flex";
+    }
+
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.style.display = 'flex';
+    }
+
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.style.display = 'none';
+    }
+
+
+
+</script>
+
+</body>
+</html>
