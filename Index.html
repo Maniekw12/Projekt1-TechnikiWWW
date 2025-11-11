@@ -1,26 +1,42 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MemeHub</title>
+    <title>My Portfolio</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background: linear-gradient(270deg, #4a1304, #17004e, #1f033f, #011b47);
-            background-size: 800% 800%;
-            animation: gradientBG 20s ease infinite;
+            background: linear-gradient(270deg, #84d4f4, #97dff1, #89aee0, #7bd6db, #1c2a48);
+            background-size: 300% 300%;
+            animation: gradientBG 50s ease infinite;
+            margin: 0;
+            padding: 0;
+            color: #333;
         }
+
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            width: 80px;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.25), transparent);
+        }
+
+        body::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(0,0,0,0.25), transparent);
+        }
+
 
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
@@ -28,504 +44,494 @@
             100% { background-position: 0% 50%; }
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideUp {
-            0% { transform: translateY(50px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        /* Navbar */
-        .navbar {
+        nav {
+            position: fixed;
+            top: 0;
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            box-sizing: border-box;
         }
 
-        .navbar-brand {
+        nav .logo {
             font-size: 1.5em;
             font-weight: bold;
-            color: #ff6f61;
-            text-decoration: none;
-        }
-
-        .navbar-buttons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .nav-btn {
-            text-decoration: none;
             color: #fff;
-            background-color: rgba(255, 111, 97, 0.8);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+            flex-shrink: 0;
         }
 
-        .nav-btn:hover {
-            background-color: #ff6f61;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-        }
-
-        .main-wrapper {
-            flex: 1;
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            gap: 25px;
             align-items: center;
-            padding: 20px;
         }
 
-        .logo-section {
-            text-align: center;
-            margin-bottom: 30px;
-            animation: fadeIn 1s ease forwards;
-        }
-
-        .logo-section h1 {
-            font-size: 4em;
-            font-weight: bold;
-            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .logo-section h1::before,
-        .logo-section h1::after {
-            content: '🎭';
-            position: relative;
-            user-select: none;
-            pointer-events: none;
-        }
-
-        .logo-section h1::before {
-            margin-right: 15px;
-        }
-
-        .logo-section h1::after {
-            margin-left: 15px;
-        }
-
-        .logo-section .tagline {
-            font-size: 1.3em;
-            font-style: italic;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
-            opacity: 0.95;
-        }
-
-        .container {
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 50px 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: slideUp 1s ease forwards;
-            max-width: 500px;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-        }
-
-        p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
-
-        .buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .btn {
+        nav ul li a {
             text-decoration: none;
             color: #fff;
-            background-color: #ff6f61;
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            white-space: nowrap;
             display: block;
         }
 
-        .btn:hover {
-            background-color: #ff4a3a;
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+        nav ul li a:hover {
+            color: #000;
         }
 
-        .about-us-container {
-            margin-top: 20px;
-            animation: fadeIn 1.5s ease forwards;
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px 20px;
+            }
+
+            nav .logo {
+                font-size: 1.3em;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            nav ul li a {
+                font-size: 0.95em;
+            }
         }
 
-        .about-us-btn {
-            text-decoration: none;
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 15px 20px;
+                gap: 12px;
+            }
+
+            nav .logo {
+                font-size: 1.4em;
+            }
+
+            nav ul {
+                flex-direction: row;
+                gap: 15px;
+                margin-top: 0;
+            }
+
+            nav ul li a {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 400px) {
+            nav ul {
+                gap: 12px;
+            }
+
+            nav ul li a {
+                font-size: 0.85em;
+            }
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 120px;
             color: #fff;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 12px 30px;
-            border-radius: 12px;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-            display: inline-block;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+            font-size: 2.5em;
         }
 
-        .about-us-btn:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+        p {
+            text-align: center;
+            font-size: 1.1em;
+            color: #fff;
         }
 
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 2000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
-            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
         }
 
-        .modal:target {
-            display: block;
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
         }
 
         .modal-content {
-            background-color: rgba(24, 25, 26, 0.95);
-            margin: 10% auto;
-            padding: 30px 25px;
-            border-radius: 16px;
-            max-width: 500px;
-            color: #dacece;
-            text-align: center;
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
             position: relative;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            animation: slideUp 0.5s ease forwards;
+            text-align: center;
+            animation: slideIn 0.3s ease;
         }
 
-        .modal-content h3 {
-            margin-bottom: 20px;
-            font-size: 2em;
+        @keyframes slideIn {
+            from {transform: translateY(-30px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            color: #0078D7;
         }
 
         .modal-content p {
-            margin-bottom: 15px;
+            color: #555;
         }
 
-        .modal-content ul {
-            text-align: left;
-            margin: 20px auto;
-            max-width: 350px;
-            list-style: none;
-        }
-
-        .modal-content li {
-            margin-bottom: 10px;
-            padding-left: 35px;
-            position: relative;
-        }
-
-        .modal-content li:nth-child(1)::before {
-            content: '📅';
+        .close {
             position: absolute;
-            left: 0;
-            user-select: none;
-            pointer-events: none;
-        }
-
-        .modal-content li:nth-child(2)::before {
-            content: '🚀';
-            position: absolute;
-            left: 0;
-            user-select: none;
-            pointer-events: none;
-        }
-
-        .modal-content li:nth-child(3)::before {
-            content: '👥';
-            position: absolute;
-            left: 0;
-            user-select: none;
-            pointer-events: none;
-        }
-
-        .modal .close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            text-decoration: none;
-            font-size: 1.5em;
-            color: #dacece;
-            transition: color 0.3s ease;
-        }
-
-        .modal .close:hover {
-            color: #ff6f61;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            font-size: 1em;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #ff6f61;
-            background-color: rgba(255, 255, 255, 0.15);
-        }
-
-        .form-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #ff6f61;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
+            top: 12px;
+            right: 18px;
+            font-size: 24px;
+            color: #333;
             cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close:hover {
+            color: #0078D7;
+        }
+
+        .linkedin-btn {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #0077B5;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
             transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
         }
 
-        .form-btn:hover {
-            background-color: #ff4a3a;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        .linkedin-btn:hover {
+            background-color: #005582;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 12px 20px;
-            }
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
 
-            .navbar-brand {
-                font-size: 1.2em;
-            }
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+        }
 
-            .nav-btn {
-                padding: 8px 15px;
-                font-size: 0.9em;
-            }
+        .card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
 
-            .logo-section h1 {
-                font-size: 3em;
-            }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+        }
 
-            .logo-section .tagline {
-                font-size: 1.1em;
-            }
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
 
-            .container {
-                padding: 40px 25px;
-            }
+        .card .content {
+            padding: 20px;
+        }
 
-            h2 {
+        .card h3 {
+            margin-top: 0;
+            color: #0078D7;
+        }
+
+        .card p {
+            font-size: 0.95em;
+            color: #555;
+            text-align: left;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
                 font-size: 2em;
+                margin-top: 140px;
             }
 
             p {
                 font-size: 1em;
             }
 
-            .btn {
-                padding: 12px 20px;
-                font-size: 1em;
-            }
-
-            .modal-content {
-                margin: 20% auto;
-                padding: 25px 20px;
+            .projects {
+                grid-template-columns: 1fr;
             }
         }
 
-        @media (max-width: 480px) {
-            .navbar {
-                padding: 10px 15px;
-            }
 
-            .navbar-brand {
-                font-size: 1em;
-            }
+        .skills-section {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px 60px 20px;
+            text-align: center;
+            color: #fff;
+        }
 
-            .navbar-buttons {
-                gap: 10px;
-            }
+        .skills-section h2 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+            color: #fff;
+        }
 
-            .nav-btn {
-                padding: 6px 12px;
-                font-size: 0.85em;
-            }
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
 
-            .logo-section h1 {
-                font-size: 2.2em;
-            }
+        .skills-card {
+            background-color: rgba(55, 92, 145, 0.35);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            text-align: left;
+            color: #fff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
 
-            .logo-section h1::before,
-            .logo-section h1::after {
-                margin: 0 8px;
-            }
+        .skills-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+        }
 
-            .logo-section .tagline {
-                font-size: 1em;
-            }
+        .skills-card h3 {
+            color: #b2dbff;
+            margin-top: 0;
+            font-weight: 600;
+        }
 
-            .container {
-                padding: 30px 20px;
-            }
+        .skills-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-            h2 {
+        .skills-card ul li {
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .skills-card a {
+            color: #b2dbff;
+            text-decoration: none;
+        }
+
+        .skills-card a:hover {
+            text-decoration: underline;
+        }
+
+        .skills-card:nth-child(1) {
+            background-color: rgba(55, 92, 145, 0.28);
+        }
+        .skills-card:nth-child(2) {
+            background-color: rgba(55, 92, 145, 0.32);
+        }
+        .skills-card:nth-child(3) {
+            background-color: rgba(55, 92, 145, 0.36);
+        }
+        .skills-card:nth-child(4) {
+            background-color: rgba(55, 92, 145, 0.40);
+        }
+        .skills-card:nth-child(5) {
+            background-color: rgba(55, 92, 145, 0.44);
+        }
+        .skills-card:nth-child(6) {
+            background-color: rgba(55, 92, 145, 0.48);
+        }
+        .skills-card:nth-child(7) {
+            background-color: rgba(55, 92, 145, 0.52);
+        }
+
+
+        @media (max-width: 600px) {
+            .skills-section h2 {
                 font-size: 1.8em;
             }
-
-            p {
-                font-size: 0.9em;
-            }
-
-            .buttons {
-                gap: 15px;
-            }
-
-            .modal-content {
-                margin: 25% auto;
-                padding: 20px 15px;
-            }
         }
+
     </style>
 </head>
 <body>
-<nav class="navbar">
-    <a href="#" class="navbar-brand">MemeHub</a>
-    <div class="navbar-buttons">
-        <a href="#loginModal" class="nav-btn">Loguj</a>
-        <a href="#registerModal" class="nav-btn">Rejestruj</a>
-    </div>
+
+<nav>
+    <div class="logo">Marian Wachała</div>
+    <ul>
+        <li><a id="openAbout">About</a></li>
+        <li><a href="https://www.linkedin.com/in/marian-wachala" target="_blank">LinkedIn</a></li>
+    </ul>
 </nav>
 
-<div class="main-wrapper">
-    <div class="logo-section">
-        <h1>MEMEHUB</h1>
-        <p class="tagline">Memy na każdy dzień</p>
-    </div>
-
-    <div class="container">
-        <h2>Shitpost</h2>
-        <p>Every day memes!</p>
-
-        <div class="buttons">
-            <a href="publikuj.html" class="btn">Publikuj mema</a>
-            <a href="zobacz.html" class="btn">Zobacz opublikowane memy</a>
-            <a href="losowy.html" class="btn">Losowy mem</a>
-        </div>
-    </div>
-
-    <div class="about-us-container">
-        <a href="#aboutModal" class="about-us-btn">About Us</a>
-    </div>
-</div>
+<h1>My Portfolio</h1>
+<p>Author: <strong>Marian Wachała</strong></p>
 
 <div id="aboutModal" class="modal">
     <div class="modal-content">
-        <a href="#" class="close">✕</a>
-        <h3>About Us</h3>
-        <p>Witaj w naszej niesamowitej aplikacji MemeHub! 😎</p>
-        <p>Tworzymy miejsce pełne śmiechu, gdzie każdy może odkryć nowe memy i dzielić się nimi z innymi.</p>
-        <ul>
-            <li>Codzienna dawka zabawy</li>
-            <li>Łatwe przeglądanie i publikowanie memów</li>
-            <li>Przyjazne dla wszystkich użytkowników</li>
-        </ul>
-        <p>Dołącz do naszej społeczności i baw się dobrze!</p>
+        <span class="close">&times;</span>
+        <h2>About Me</h2>
+        <p>Hello! My name is Marian Wachała and I create applications and web projects.
+            I am a 3rd year Applied Computer Science student and currently working as a Software Engineer Intern at Grid Dynamics.
+            I enjoy turning ideas into digital reality — whether that's a web app, mobile tool, or interactive experience.</p>
     </div>
 </div>
 
-<div id="loginModal" class="modal">
-    <div class="modal-content">
-        <a href="#" class="close">✕</a>
-        <h3>Logowanie</h3>
-        <form>
-            <div class="form-group">
-                <label for="login-email">Email:</label>
-                <input type="email" id="login-email" placeholder="Wprowadź email" required>
-            </div>
-            <div class="form-group">
-                <label for="login-password">Hasło:</label>
-                <input type="password" id="login-password" placeholder="Wprowadź hasło" required>
-            </div>
-            <button type="submit" class="form-btn">Zaloguj się</button>
-        </form>
-    </div>
-</div>
+<section id="projects" class="projects">
 
-<!-- Modal Rejestracja -->
-<div id="registerModal" class="modal">
-    <div class="modal-content">
-        <a href="#" class="close">✕</a>
-        <h3>Rejestracja</h3>
-        <form>
-            <div class="form-group">
-                <label for="register-username">Nazwa użytkownika:</label>
-                <input type="text" id="register-username" placeholder="Wybierz nazwę" required>
+    <a href="https://github.com/Maniekw12/ToReadApp" class="card-link" target="_blank">
+        <div class="card">
+            <img src="to-read.png" alt="To Read App">
+            <div class="content">
+                <h3>To Read App</h3>
+                <p>Mobile application for managing a reading list.
+                    Allows adding, rating, and marking books as read.</p>
             </div>
-            <div class="form-group">
-                <label for="register-email">Email:</label>
-                <input type="email" id="register-email" placeholder="Wprowadź email" required>
+        </div>
+    </a>
+
+    <a href="https://github.com/Maniekw12/ExMon" class="card-link" target="_blank">
+        <div class="card">
+            <img src="exmon.png" alt="Exmon - currency app">
+            <div class="content">
+                <h3>Exmon</h3>
+                <p>App to track currency rates in real-time.
+                    Enables quick conversions and custom price alerts.</p>
             </div>
-            <div class="form-group">
-                <label for="register-password">Hasło:</label>
-                <input type="password" id="register-password" placeholder="Wprowadź hasło" required>
+        </div>
+    </a>
+
+    <a href="https://github.com/Maniekw12/T9-system" class="card-link" target="_blank">
+        <div class="card">
+            <img src="t9-simulator.png" alt="T9 Simulator">
+            <div class="content">
+                <h3>T9 Simulator</h3>
+                <p>Simulator of classic T9 typing from old phones.
+                    Fun throwback to Nokia times!</p>
             </div>
-            <div class="form-group">
-                <label for="register-password-confirm">Potwierdź hasło:</label>
-                <input type="password" id="register-password-confirm" placeholder="Powtórz hasło" required>
-            </div>
-            <button type="submit" class="form-btn">Zarejestruj się</button>
-        </form>
+        </div>
+    </a>
+</section>
+
+<section id="skills" class="skills-section">
+    <h2>Skills & Experience</h2>
+
+    <div class="skills-container">
+
+        <div class="skills-card">
+            <h3>Contact</h3>
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:wachala.marian@gmail.com">wachala.marian@gmail.com</a></li>
+                <li><strong>Mobile:</strong> +48 517 414 483</li>
+            </ul>
+        </div>
+
+        <div class="skills-card">
+            <h3>Languages</h3>
+            <ul>
+                <li>Polish – Native</li>
+                <li>English – Advanced (B2/C1)</li>
+            </ul>
+        </div>
+
+        <div class="skills-card">
+            <h3>Programming Languages</h3>
+            <ul>
+                <li>Java</li>
+                <li>Python</li>
+                <li>C++</li>
+                <li>C</li>
+            </ul>
+        </div>
+
+        <div class="skills-card">
+            <h3>Technologies</h3>
+            <ul>
+                <li>IntelliJ IDEA, PyCharm, Git, Linux</li>
+                <li>Spring Boot, JUnit, Mockito, Maven</li>
+                <li>GitHub, GitLab, PostgreSQL, SQL, Docker</li>
+            </ul>
+        </div>
+
+        <div class="skills-card">
+            <h3>Education</h3>
+            <ul>
+                <li>🎓 <strong>Jagiellonian University</strong></li>
+                <li>Bachelor of Computer Science (2023–2026, expected)</li>
+            </ul>
+        </div>
+
+        <div class="skills-card">
+            <h3>Experience</h3>
+            <ul>
+                <li>💼 <strong>Grid Dynamics</strong></li>
+                <li>Java Software Engineer Intern (2025 – present)</li>
+            </ul>
+        </div>
+
+
     </div>
-</div>
+</section>
+
+
+
+
+<script>
+    const modal = document.getElementById("aboutModal");
+    const openBtn = document.getElementById("openAbout");
+    const closeBtn = document.querySelector(".close");
+
+    openBtn.onclick = function() {
+        modal.style.display = "flex";
+    }
+
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
 </body>
 </html>
