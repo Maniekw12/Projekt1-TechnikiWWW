@@ -15,7 +15,6 @@
             color: #333;
         }
 
-
         body::before,
         body::after {
             content: "";
@@ -36,7 +35,6 @@
             right: 0;
             background: linear-gradient(to left, rgba(0,0,0,0.25), transparent);
         }
-
 
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
@@ -164,15 +162,16 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.6);
+            background-color: rgba(0,0,0,0.7);
             justify-content: center;
             align-items: center;
-            animation: fadeIn 0.3s ease;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
+        .modal:target {
+            display: flex;
+            opacity: 1;
         }
 
         .modal-content {
@@ -181,15 +180,17 @@
             padding: 30px;
             width: 90%;
             max-width: 600px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            max-height: 90%;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
             position: relative;
             text-align: center;
-            animation: slideIn 0.3s ease;
+            overflow: auto;
+            transform: translateY(-30px);
+            transition: transform 0.3s ease;
         }
 
-        @keyframes slideIn {
-            from {transform: translateY(-30px); opacity: 0;}
-            to {transform: translateY(0); opacity: 1;}
+        .modal:target .modal-content {
+            transform: translateY(0);
         }
 
         .modal-content h2 {
@@ -201,6 +202,12 @@
             color: #555;
         }
 
+        .modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 12px;
+        }
+
         .close {
             position: absolute;
             top: 12px;
@@ -209,6 +216,7 @@
             color: #333;
             cursor: pointer;
             transition: 0.2s;
+            text-decoration: none;
         }
 
         .close:hover {
@@ -234,8 +242,6 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-
-
         .card p {
             font-size: 0.95em;
             color: #555;
@@ -252,6 +258,7 @@
                 font-size: 1em;
             }
         }
+
         @media (max-width: 500px) {
             .title-with-logo {
                 flex-direction: column;
@@ -260,18 +267,17 @@
             }
         }
 
-
         .title-with-logo {
             display: flex;
-            flex-direction: row; /* logo i tekst obok siebie */
-            align-items: center; /* wyrównanie w pionie */
-            justify-content: center; /* wyśrodkowanie całości */
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
             margin-top: 120px;
-            gap: 16px; /* minimalny odstęp między logo a napisem */
+            gap: 16px;
         }
 
         .title-with-logo h1 {
-            margin: 0; /* usuwa dodatkowe marginesy */
+            margin: 0;
             color: #fff;
             font-size: 2.5em;
             text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
@@ -289,8 +295,6 @@
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
-
-
 
         .project-description {
             max-width: 900px;
@@ -337,14 +341,9 @@
             border-radius: 5px;
             font-family: monospace;
         }
-        p {
-            text-align: center;
-            font-size: 1.1em;
-            color: #fff;  /* <- to powoduje, że wszystkie <p> są białe */
-        }
 
         .project-description p {
-            color: #333; /* ciemny tekst dla lepszej czytelności */
+            color: #333;
         }
 
         .code {
@@ -369,11 +368,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
             color: #fff;
             font-weight: bold;
             text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
         }
 
         .screenshots-grid .grid-item:hover {
@@ -392,59 +391,10 @@
             border-radius: 6px;
         }
 
-        /* Przykładowe tła dla poszczególnych screenów */
         .book1 { background-image: url('index.png'); background-size: cover; background-position: center; }
         .book2 { background-image: url('allBooks.png'); background-size: cover; background-position: center; }
         .book3 { background-image: url('updatePages.png'); background-size: cover; background-position: center; }
         .book4 { background-image: url('deleteBook.png'); background-size: cover; background-position: center; }
-
-
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            border-radius: 12px;
-            padding: 15px;
-            max-width: 90%;
-            max-height: 90%;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-            position: relative;
-            text-align: center;
-            overflow: auto;
-        }
-
-        .modal-content img {
-            max-width: 100%;
-            max-height: 80vh;
-            border-radius: 12px;
-        }
-
-        .modal .close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 28px;
-            font-weight: bold;
-            color: #333;
-            cursor: pointer;
-        }
-
-        .modal .close:hover {
-            color: #0078D7;
-        }
 
     </style>
 </head>
@@ -453,9 +403,9 @@
 <nav>
     <div class="logo">Marian Wachała</div>
     <ul>
-        <li><a id="openAbout">About</a></li>
+        <li><a href="#aboutModal">About</a></li>
         <li><a href="https://www.linkedin.com/in/marian-wachala" target="_blank">LinkedIn</a></li>
-        <li><a href="index.html" target="_blank">Back</a></li>
+        <li><a href="index.html">Back</a></li>
     </ul>
 </nav>
 
@@ -507,12 +457,9 @@
     <p>Once everything is set up and running, the application will be available at: <a href="http://localhost:8000" target="_blank">http://localhost:8000</a></p>
 </div>
 
-
-
-
 <div id="aboutModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <a href="#" class="close">&times;</a>
         <h2>About Me</h2>
         <p>Hello! My name is Marian Wachała and I create applications and web projects.
             I am a 3rd year Applied Computer Science student and currently working as a Software Engineer Intern at Grid Dynamics.
@@ -520,85 +467,48 @@
     </div>
 </div>
 
-
 <section class="screenshots-grid">
-    <div class="grid-item book1" onclick="openModal('book1Modal')">
+    <a href="#book1Modal" class="grid-item book1">
         <span class="grid-label">Home Screen</span>
-    </div>
-    <div class="grid-item book2" onclick="openModal('book2Modal')">
+    </a>
+    <a href="#book2Modal" class="grid-item book2">
         <span class="grid-label">All books</span>
-    </div>
-    <div class="grid-item book3" onclick="openModal('book3Modal')">
+    </a>
+    <a href="#book3Modal" class="grid-item book3">
         <span class="grid-label">Update books</span>
-    </div>
-    <div class="grid-item book4" onclick="openModal('book4Modal')">
+    </a>
+    <a href="#book4Modal" class="grid-item book4">
         <span class="grid-label">Delete book</span>
-    </div>
+    </a>
 </section>
 
-
-<!-- Modale dla screenshotów -->
 <div id="book1Modal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal('book1Modal')">&times;</span>
-        <img src="index.png" alt="Home Screen" style="width: 100%; border-radius: 12px;">
+        <a href="#" class="close">&times;</a>
+        <img src="index.png" alt="Home Screen">
     </div>
 </div>
 
 <div id="book2Modal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal('book2Modal')">&times;</span>
-        <img src="allBooks.png" alt="To Read List" style="width: 100%; border-radius: 12px;">
+        <a href="#" class="close">&times;</a>
+        <img src="allBooks.png" alt="To Read List">
     </div>
 </div>
 
 <div id="book3Modal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal('book3Modal')">&times;</span>
-        <img src="updatePages.png" alt="Book Details" style="width: 100%; border-radius: 12px;">
+        <a href="#" class="close">&times;</a>
+        <img src="updatePages.png" alt="Book Details">
     </div>
 </div>
 
 <div id="book4Modal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal('book4Modal')">&times;</span>
-        <img src="deleteBook.png" alt="Progress Tracker" style="width: 100%; border-radius: 12px;">
+        <a href="#" class="close">&times;</a>
+        <img src="deleteBook.png" alt="Progress Tracker">
     </div>
 </div>
-
-
-<script>
-    const modal = document.getElementById("aboutModal");
-    const openBtn = document.getElementById("openAbout");
-    const closeBtn = document.querySelector(".close");
-
-    openBtn.onclick = function() {
-        modal.style.display = "flex";
-    }
-
-    closeBtn.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }
-
-    function openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        modal.style.display = 'flex';
-    }
-
-    function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        modal.style.display = 'none';
-    }
-
-
-
-</script>
 
 </body>
 </html>
