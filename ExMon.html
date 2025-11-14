@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exmon App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(270deg, #2ecc71, #27ae60, #16a085, #1abc9c, #0e3b43);
+            background-size: 300% 300%;
+            animation: gradientBG 50s ease infinite;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            width: 80px;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.25), transparent);
+        }
+
+        body::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(0,0,0,0.25), transparent);
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        nav .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            white-space: nowrap;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px 20px;
+            }
+
+            nav .logo {
+                font-size: 1.3em;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            nav ul li a {
+                font-size: 0.95em;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 15px 20px;
+                gap: 12px;
+            }
+
+            nav .logo {
+                font-size: 1.4em;
+            }
+
+            nav ul {
+                flex-direction: row;
+                gap: 15px;
+                margin-top: 0;
+            }
+
+            nav ul li a {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 400px) {
+            nav ul {
+                gap: 12px;
+            }
+
+            nav ul li a {
+                font-size: 0.85em;
+            }
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 120px;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+            font-size: 2.5em;
+        }
+
+        p {
+            text-align: center;
+            font-size: 1.1em;
+            color: #fff;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal:target {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90%;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            position: relative;
+            text-align: center;
+            overflow: auto;
+            transform: translateY(-30px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal:target .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            color: #16a085;
+        }
+
+        .modal-content p {
+            color: #555;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 12px;
+        }
+
+        .close {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .close:hover {
+            color: #16a085;
+        }
+
+        .card p {
+            font-size: 0.95em;
+            color: #555;
+            text-align: left;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+                margin-top: 140px;
+            }
+
+            p {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .title-with-logo {
+                flex-direction: column;
+                gap: 8px;
+                margin-top: 100px;
+            }
+        }
+
+        .title-with-logo {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-top: 120px;
+            gap: 16px;
+        }
+
+        .title-with-logo h1 {
+            margin: 0;
+            color: #fff;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+        }
+
+        .app-logo {
+            width: 120px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fff;
+            padding: 10px;
+        }
+
+        .app-logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .project-description {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 25px 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .project-description h2 {
+            margin-top: 0;
+            color: #16a085;
+        }
+
+        .project-description h3 {
+            margin-bottom: 10px;
+            color: #16a085;
+        }
+
+        .project-description ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+
+        .project-description ul li {
+            margin-bottom: 6px;
+        }
+
+        .project-description a {
+            color: #16a085;
+            text-decoration: none;
+        }
+
+        .project-description a:hover {
+            text-decoration: underline;
+        }
+
+        .project-description code {
+            background-color: #0b0b0b;
+            padding: 2px 5px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+
+        .project-description p {
+            color: #333;
+        }
+
+        .code {
+            color: #ffffff;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">Marian Wachała</div>
+    <ul>
+        <li><a href="#aboutModal">About</a></li>
+        <li><a href="https://www.linkedin.com/in/marian-wachala" target="_blank">LinkedIn</a></li>
+        <li><a href="index.html">Back</a></li>
+    </ul>
+</nav>
+
+<div class="title-with-logo">
+    <a href="https://github.com/Maniekw12/ExMon" target="_blank">
+        <img src="exmon.png" alt="Exmon Logo" class="app-logo">
+    </a>
+    <h1>To Read App</h1>
+</div>
+<p>Author: <strong>Marian Wachała</strong></p>
+
+<div class="project-description">
+    <h2>About Exmon</h2>
+    <p>
+        Exmon is an application designed to track currency exchange rates in real-time. It enables users to quickly convert between different currencies and set custom price alerts to stay informed about market changes. Perfect for travelers, traders, and anyone who needs to monitor exchange rates.
+    </p>
+
+    <h3>📌 Features of Exmon</h3>
+    <ul>
+        <li>Real-time currency rates – monitor exchange rates as they change</li>
+        <li>Quick conversions – instantly convert between multiple currencies</li>
+        <li>Custom price alerts – get notified when rates hit your target price</li>
+        <li>Rate history – view historical exchange rate data</li>
+        <li>Favorite currencies – save your most-used currency pairs</li>
+        <li>Multi-currency support – track currencies from around the world</li>
+        <li>Responsive design – works seamlessly on all devices</li>
+    </ul>
+
+    <h3>⚙️ Application Setup & Running</h3>
+    <p><strong>Requirements:</strong></p>
+    <ul>
+        <li>Docker must be installed</li>
+        <li>Ports 8000 (Frontend), 8080 (Backend) and 5432 (database) must be free</li>
+    </ul>
+
+    <p><strong>Build the Application:</strong><br>
+        <code class="code">docker compose up --build</code>
+    </p>
+
+    <p><strong>Run the Application:</strong><br>
+        <code class="code">docker compose up</code>
+    </p>
+
+    <p><strong>Stop the Application:</strong><br>
+        <code class="code">docker compose down</code>
+    </p>
+
+    <p>Once everything is set up and running, the application will be available at: <a href="http://localhost:8000" target="_blank">http://localhost:8000</a></p>
+
+    <h3>🛠️ Technology Stack</h3>
+    <ul>
+        <li>Backend: Spring Boot (Gradle)</li>
+        <li>Frontend: HTML, CSS, JavaScript</li>
+        <li>Database: PostgreSQL</li>
+        <li>Containerization: Docker</li>
+    </ul>
+</div>
+
+<div id="aboutModal" class="modal">
+    <div class="modal-content">
+        <a href="#" class="close">&times;</a>
+        <h2>About Me</h2>
+        <p>Hello! My name is Marian Wachała and I create applications and web projects.
+            I am a 3rd year Applied Computer Science student and currently working as a Software Engineer Intern at Grid Dynamics.
+            I enjoy turning ideas into digital reality — whether that's a web app, mobile tool, or interactive experience.</p>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>
