@@ -5,19 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T9 Simulator | Marian Wachała</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(270deg, #d1bac1, #b4bcb6, #969d9b, #8fc5c5, #0e3b43);
             background-size: 300% 300%;
             animation: gradientBG 50s ease infinite;
+            margin: 0;
+            padding: 0;
             color: #333;
-            min-height: 100vh;
         }
 
         body::before,
@@ -59,6 +54,7 @@
             padding: 15px 30px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             z-index: 1000;
+            box-sizing: border-box;
         }
 
         nav .logo {
@@ -71,6 +67,8 @@
 
         nav ul {
             list-style: none;
+            margin: 0;
+            padding: 0;
             display: flex;
             gap: 25px;
             align-items: center;
@@ -83,114 +81,77 @@
             transition: color 0.3s ease;
             cursor: pointer;
             white-space: nowrap;
+            display: block;
         }
 
         nav ul li a:hover {
             color: #000;
         }
 
-        .container {
-            position: relative;
-            z-index: 1;
-            padding: 140px 20px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px 20px;
+            }
+
+            nav .logo {
+                font-size: 1.3em;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            nav ul li a {
+                font-size: 0.95em;
+            }
         }
 
-        .title-section {
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 15px 20px;
+                gap: 12px;
+            }
+
+            nav .logo {
+                font-size: 1.4em;
+            }
+
+            nav ul {
+                flex-direction: row;
+                gap: 15px;
+                margin-top: 0;
+            }
+
+            nav ul li a {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 400px) {
+            nav ul {
+                gap: 12px;
+            }
+
+            nav ul li a {
+                font-size: 0.85em;
+            }
+        }
+
+        h1 {
             text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .title-section h1 {
+            margin-top: 120px;
             color: #fff;
-            font-size: 2.8em;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
-            margin-bottom: 10px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+            font-size: 2.5em;
         }
 
-        .title-section p {
-            color: #fff;
-            font-size: 1.2em;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        }
-
-        .project-description {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-            padding: 30px;
-            margin-bottom: 30px;
-            line-height: 1.7;
-        }
-
-        .project-description h2 {
-            color: #16a085;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-        }
-
-        .project-description h3 {
-            color: #16a085;
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-
-        .project-description p {
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .project-description ul {
-            list-style: disc;
-            padding-left: 25px;
-            margin-bottom: 15px;
-        }
-
-        .project-description ul li {
-            margin-bottom: 8px;
-            color: #333;
-        }
-
-        .project-description code {
-            background-color: #f0f0f0;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            color: #c7254e;
-        }
-
-        .project-description a {
-            color: #16a085;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .project-description a:hover {
-            text-decoration: underline;
-        }
-
-        .project-image {
+        p {
             text-align: center;
-            margin: 30px 0;
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-        }
-
-        .project-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border: 3px solid #16a085;
-        }
-
-        .project-image figcaption {
-            margin-top: 15px;
-            color: #555;
-            font-style: italic;
+            font-size: 1.1em;
+            color: #fff;
         }
 
         .modal {
@@ -234,86 +195,36 @@
 
         .modal-content h2 {
             margin-top: 0;
-            margin-bottom: 15px;
             color: #16a085;
         }
 
         .modal-content p {
             color: #555;
-            line-height: 1.6;
         }
 
         .close {
             position: absolute;
             top: 12px;
             right: 18px;
-            font-size: 28px;
+            font-size: 24px;
             color: #333;
             cursor: pointer;
-            transition: color 0.2s;
+            transition: 0.2s;
             text-decoration: none;
-            font-weight: bold;
         }
 
         .close:hover {
             color: #16a085;
         }
 
-        @media (max-width: 768px) {
-            nav {
-                padding: 12px 20px;
-            }
-
-            nav .logo {
-                font-size: 1.3em;
-            }
-
-            nav ul {
-                gap: 15px;
-            }
-
-            nav ul li a {
-                font-size: 0.9em;
-            }
-
-            .title-section h1 {
-                font-size: 2.2em;
-            }
-
-            .title-section p {
-                font-size: 1em;
-            }
-
-            .project-description {
-                padding: 20px;
-            }
-
-            .project-image {
-                padding: 20px;
-            }
-        }
-
         @media (max-width: 600px) {
-            nav {
-                flex-direction: column;
-                gap: 12px;
-                padding: 15px 20px;
+            h1 {
+                font-size: 2em;
+                margin-top: 140px;
             }
 
-            nav ul {
-                margin-top: 0;
-            }
-
-            .container {
-                padding-top: 180px;
-            }
-
-            .title-section h1 {
-                font-size: 1.8em;
-            }
-
-            .project-description h2 {
-                font-size: 1.5em;
+            p {
+                font-size: 1em;
             }
         }
 
@@ -341,7 +252,6 @@
             text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
         }
 
-
         .app-logo {
             width: 120px;
             height: auto;
@@ -357,8 +267,81 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
 
+        .project-description {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 25px 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+            color: #333;
+            line-height: 1.6;
+        }
 
+        .project-description h2 {
+            margin-top: 0;
+            color: #16a085;
+        }
 
+        .project-description h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #16a085;
+        }
+
+        .project-description ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+
+        .project-description ul li {
+            margin-bottom: 6px;
+        }
+
+        .project-description a {
+            color: #16a085;
+            text-decoration: none;
+        }
+
+        .project-description a:hover {
+            text-decoration: underline;
+        }
+
+        .project-description code {
+            background-color: #0b0b0b;
+            padding: 2px 5px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+
+        .project-description p {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .code {
+            color: #ffffff;
+        }
+
+        .keypad-image {
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .keypad-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 3px solid #16a085;
+        }
+
+        .keypad-image figcaption {
+            margin-top: 12px;
+            color: #555;
+            font-style: italic;
+            font-size: 0.95em;
+        }
     </style>
 </head>
 <body>
@@ -374,70 +357,101 @@
 
 <div class="title-with-logo">
     <a href="https://github.com/Maniekw12/T9-system" target="_blank">
-        <img src="t9-simulator.png" alt="t9 Logo" class="app-logo">
+        <img src="t9-simulator.png" alt="T9 Logo" class="app-logo">
     </a>
     <h1>T9 Simulator</h1>
 </div>
-<div class="title-section">
-    <p>Author: <strong>Marian Wachała</strong></p>
-</div>
+<p>Author: <strong>Marian Wachała</strong></p>
 
+<div class="project-description">
+    <h2>About T9 Simulator</h2>
+    <p>
+        T9 is a predictive text input technology designed for mobile phones with a 3×4 numeric keypad.
+        It was originally developed by Tegic Communications, now part of Nuance Communications.
+        The name "T9" stands for <strong>Text on 9 keys</strong>. This simulator recreates the classic T9 experience
+        and demonstrates how predictive text technology revolutionized mobile communication in the pre-smartphone era.
+    </p>
 
-<div class="container">
+    <h3>Features of T9 System</h3>
+    <ul>
+        <li>Predictive text input using numeric keypad (2-9 keys)</li>
+        <li>Dictionary-based word suggestions for faster typing</li>
+        <li>Cycle through word suggestions using special keys</li>
+        <li>Efficient text entry with minimal key presses</li>
+        <li>Support for multiple language dictionaries</li>
+        <li>Classic mobile phone typing experience</li>
+    </ul>
 
-    <div class="project-description">
-        <h2>About the T9 System</h2>
-        <p>
-            T9 is a predictive text input technology designed for mobile phones with a 3×4 numeric keypad.
-            It was originally developed by Tegic Communications, now part of Nuance Communications.
-            The name "T9" stands for <strong>Text on 9 keys</strong>.
-        </p>
-
-        <h3>History and Usage</h3>
-        <p>
-            In the late 1990s, T9 was used in phones by manufacturers such as Verizon, NEC, Nokia, Samsung, Siemens,
-            Sony Mobile, Sanyo, and SAGEM, as well as PDAs like Avigo. Key competitors included Motorola's iTap,
-            RIM's SureType, Eatoni's LetterWise and WordWise, and Intelab's Tauto.
-        </p>
-
-        <h3>Availability Today</h3>
-        <p>
-            Today, T9 is still available on niche devices like the Punkt mp-02, on some non-touchscreen phones,
-            and as a custom keyboard for Android and iPhone devices (from iOS 18).
-        </p>
-
-        <h3>How T9 Works</h3>
-        <ul>
-            <li>Each numeric key (2-9) represents 3-4 letters</li>
-            <li>The system predicts words based on the sequence of key presses</li>
-            <li>It uses a dictionary to suggest the most likely words</li>
-            <li>Users can cycle through suggestions using the <code>*</code> or <code>#</code> keys</li>
-        </ul>
-
-        <h3>Technologies</h3>
-        <p>
-            This project is written in Python using Trie data structure.
-        </p>
-    </div>
-
-    <div class="project-image">
+    <div class="keypad-image">
         <figure>
             <img src="keypad.png" alt="T9 Keypad layout">
             <figcaption>Classic T9 keypad layout used in traditional mobile phones</figcaption>
         </figure>
     </div>
+
+    <h3>History and Usage</h3>
+    <p>
+        In the late 1990s, T9 was used in phones by manufacturers such as Verizon, NEC, Nokia, Samsung, Siemens,
+        Sony Mobile, Sanyo, and SAGEM, as well as PDAs like Avigo. Key competitors included Motorola's iTap,
+        RIM's SureType, Eatoni's LetterWise and WordWise, and Intelab's Tauto.
+    </p>
+    <p>
+        Today, T9 is still available on niche devices like the Punkt mp-02, on some non-touchscreen phones,
+        and as a custom keyboard for Android and iPhone devices (from iOS 18).
+    </p>
+
+    <h3>How T9 Works</h3>
+    <ul>
+        <li>Each numeric key (2-9) represents 3-4 letters</li>
+        <li>The system predicts words based on the sequence of key presses</li>
+        <li>It uses a dictionary to suggest the most likely words</li>
+        <li>Users can cycle through suggestions using the <code class="code">*</code> or <code class="code">#</code> keys</li>
+        <li>The algorithm uses a Trie data structure for efficient word lookup</li>
+    </ul>
+
+    <h3>Application Setup & Running</h3>
+    <p><strong>Requirements:</strong></p>
+    <ul>
+        <li>Python 3.x installed on your system</li>
+        <li>Basic understanding of command line/terminal</li>
+    </ul>
+
+    <p><strong>Clone the Repository:</strong><br>
+        <code class="code">git clone https://github.com/Maniekw12/T9-system.git</code>
+    </p>
+
+    <p><strong>Navigate to Project Directory:</strong><br>
+        <code class="code">cd T9-system</code>
+    </p>
+
+    <p><strong>Run the Simulator:</strong><br>
+        <code class="code">python t9_simulator.py</code>
+    </p>
+
+    <h3>Technology Stack</h3>
+    <ul>
+        <li>Language: Python 3.x</li>
+        <li>Data Structure: Trie (Prefix Tree)</li>
+        <li>Algorithm: Predictive text matching</li>
+        <li>Dictionary: Custom word database</li>
+    </ul>
+
+    <h3>Use Cases</h3>
+    <ul>
+        <li>Educational tool for understanding predictive text algorithms</li>
+        <li>Nostalgia project for experiencing classic mobile phone typing</li>
+        <li>Data structures demonstration (Trie implementation)</li>
+        <li>Input method research and development</li>
+    </ul>
 </div>
 
 <div id="aboutModal" class="modal">
     <div class="modal-content">
         <a href="#" class="close">&times;</a>
         <h2>About Me</h2>
-        <p>
-            Hi! My name is Marian Wachała and I create applications and web projects.
-            I am a 3rd-year Applied Computer Science student and currently work as a Software Engineer Intern
-            at Grid Dynamics. I enjoy turning ideas into digital reality — whether that's a web app,
-            a mobile tool, or an interactive experience.
-        </p>
+        <p>Hello! My name is Marian Wachała and I create applications and web projects.
+            I am a 3rd year Applied Computer Science student and currently working as a Software Engineer Intern at Grid Dynamics.
+            I enjoy turning ideas into digital reality — whether that's a web app, mobile tool, or interactive experience.</p>
     </div>
 </div>
 
