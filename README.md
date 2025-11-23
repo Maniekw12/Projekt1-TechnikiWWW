@@ -8,8 +8,8 @@ Personal portfolio website showcasing my software development projects and skill
 
 1. **Clone the repository:**
 ```bash
-git clone <repository-url>
-cd portfolio
+git clone https://github.com/Maniekw12/Projekt1-TechnikiWWW.git
+cd Projekt1-TechnikiWWW
 ```
 
 2. **Open in browser:**
