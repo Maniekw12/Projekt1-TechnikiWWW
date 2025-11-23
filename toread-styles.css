@@ -1,0 +1,87 @@
+body {
+    background: linear-gradient(270deg, #84d4f4, #97dff1, #89aee0, #7bd6db, #1c2a48);
+    background-size: 300% 300%;
+    animation: gradientBG 50s ease infinite;
+}
+
+.modal-content h2 {
+    color: #0078D7;
+}
+
+.close:hover {
+    color: #0078D7;
+}
+
+.project-description h2,
+.project-description h3 {
+    color: #0078D7;
+}
+
+.project-description a {
+    color: #0078D7;
+}
+
+.screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.screenshots-grid .grid-item {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border-radius: 15px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+}
+
+.screenshots-grid .grid-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+.screenshots-grid .grid-label {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1em;
+    background: rgba(0,0,0,0.4);
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.book1 {
+    background-image: url('photos/index.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.book2 {
+    background-image: url('photos/allBooks.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.book3 {
+    background-image: url('photos/updatePages.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.book4 {
+    background-image: url('photos/deleteBook.png');
+    background-size: cover;
+    background-position: center;
+}

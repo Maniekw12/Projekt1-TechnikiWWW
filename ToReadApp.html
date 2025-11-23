@@ -4,380 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Read app</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(270deg, #84d4f4, #97dff1, #89aee0, #7bd6db, #1c2a48);
-            background-size: 300% 300%;
-            animation: gradientBG 50s ease infinite;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
+    <link rel="stylesheet" href="common-styles.css">
+    <link rel="stylesheet" href="toread-styles.css">
 
-        body::before,
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            width: 80px;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        body::before {
-            left: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.25), transparent);
-        }
-
-        body::after {
-            right: 0;
-            background: linear-gradient(to left, rgba(0,0,0,0.25), transparent);
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-            box-sizing: border-box;
-        }
-
-        nav .logo {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-            flex-shrink: 0;
-        }
-
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 25px;
-            align-items: center;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            cursor: pointer;
-            white-space: nowrap;
-            display: block;
-        }
-
-        nav ul li a:hover {
-            color: #000;
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                padding: 12px 20px;
-            }
-
-            nav .logo {
-                font-size: 1.3em;
-            }
-
-            nav ul {
-                gap: 20px;
-            }
-
-            nav ul li a {
-                font-size: 0.95em;
-            }
-        }
-
-        @media (max-width: 600px) {
-            nav {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                padding: 15px 20px;
-                gap: 12px;
-            }
-
-            nav .logo {
-                font-size: 1.4em;
-            }
-
-            nav ul {
-                flex-direction: row;
-                gap: 15px;
-                margin-top: 0;
-            }
-
-            nav ul li a {
-                font-size: 0.9em;
-            }
-        }
-
-        @media (max-width: 400px) {
-            nav ul {
-                gap: 12px;
-            }
-
-            nav ul li a {
-                font-size: 0.85em;
-            }
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 120px;
-            color: #fff;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
-            font-size: 2.5em;
-        }
-
-        p {
-            text-align: center;
-            font-size: 1.1em;
-            color: #fff;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal:target {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            border-radius: 12px;
-            padding: 30px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 90%;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-            position: relative;
-            text-align: center;
-            overflow: auto;
-            transform: translateY(-30px);
-            transition: transform 0.3s ease;
-        }
-
-        .modal:target .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-content h2 {
-            margin-top: 0;
-            color: #0078D7;
-        }
-
-        .modal-content p {
-            color: #555;
-        }
-
-        .modal-content img {
-            max-width: 100%;
-            max-height: 80vh;
-            border-radius: 12px;
-        }
-
-        .close {
-            position: absolute;
-            top: 12px;
-            right: 18px;
-            font-size: 24px;
-            color: #333;
-            cursor: pointer;
-            transition: 0.2s;
-            text-decoration: none;
-        }
-
-        .close:hover {
-            color: #0078D7;
-        }
-
-        .card p {
-            font-size: 0.95em;
-            color: #555;
-            text-align: left;
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
-                margin-top: 140px;
-            }
-
-            p {
-                font-size: 1em;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .title-with-logo {
-                flex-direction: column;
-                gap: 8px;
-                margin-top: 100px;
-            }
-        }
-
-        .title-with-logo {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            margin-top: 120px;
-            gap: 16px;
-        }
-
-        .title-with-logo h1 {
-            margin: 0;
-            color: #fff;
-            font-size: 2.5em;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
-        }
-
-        .app-logo {
-            width: 120px;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .app-logo:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-        }
-
-        .project-description {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 25px 30px;
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .project-description h2 {
-            margin-top: 0;
-            color: #0078D7;
-        }
-
-        .project-description h3 {
-            margin-bottom: 10px;
-            color: #0078D7;
-        }
-
-        .project-description ul {
-            list-style: disc;
-            padding-left: 20px;
-        }
-
-        .project-description ul li {
-            margin-bottom: 6px;
-        }
-
-        .project-description a {
-            color: #0078D7;
-            text-decoration: none;
-        }
-
-        .project-description a:hover {
-            text-decoration: underline;
-        }
-
-        .project-description code {
-            background-color: #0b0b0b;
-            padding: 2px 5px;
-            border-radius: 5px;
-            font-family: monospace;
-        }
-
-        .project-description p {
-            color: #333;
-        }
-
-        .code {
-            color: #ffffff;
-        }
-
-        .screenshots-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .screenshots-grid .grid-item {
-            position: relative;
-            background-color: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(8px);
-            border-radius: 15px;
-            height: 180px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-weight: bold;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none;
-        }
-
-        .screenshots-grid .grid-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-        }
-
-        .screenshots-grid .grid-label {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1em;
-            background: rgba(0,0,0,0.4);
-            padding: 4px 8px;
-            border-radius: 6px;
-        }
-
-        .book1 { background-image: url('index.png'); background-size: cover; background-position: center; }
-        .book2 { background-image: url('allBooks.png'); background-size: cover; background-position: center; }
-        .book3 { background-image: url('updatePages.png'); background-size: cover; background-position: center; }
-        .book4 { background-image: url('deleteBook.png'); background-size: cover; background-position: center; }
-
-    </style>
 </head>
 <body>
 
@@ -392,7 +21,7 @@
 
 <div class="title-with-logo">
     <a href="https://github.com/Maniekw12/ToReadApp" target="_blank">
-        <img src="to-read.png" alt="To Read App Logo" class="app-logo">
+        <img src="photos/to-read.png" alt="To Read App Logo" class="app-logo">
     </a>
     <h1>To Read App</h1>
 </div>
@@ -466,30 +95,32 @@
 <div id="book1Modal" class="modal">
     <div class="modal-content">
         <a href="#" class="close">&times;</a>
-        <img src="index.png" alt="Home Screen">
+        <img src="photos/index.png" alt="Home Screen">
     </div>
 </div>
 
 <div id="book2Modal" class="modal">
     <div class="modal-content">
         <a href="#" class="close">&times;</a>
-        <img src="allBooks.png" alt="To Read List">
+        <img src="photos/allBooks.png" alt="To Read List">
     </div>
 </div>
 
 <div id="book3Modal" class="modal">
     <div class="modal-content">
         <a href="#" class="close">&times;</a>
-        <img src="updatePages.png" alt="Book Details">
+        <img src="photos/updatePages.png" alt="Book Details">
     </div>
 </div>
 
 <div id="book4Modal" class="modal">
     <div class="modal-content">
         <a href="#" class="close">&times;</a>
-        <img src="deleteBook.png" alt="Progress Tracker">
+        <img src="photos/deleteBook.png" alt="Progress Tracker">
     </div>
 </div>
-
+<footer>
+    <p>&copy; 2025 Marian Wąchała. All rights reserved.</p>
+</footer>
 </body>
 </html>

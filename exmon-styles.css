@@ -1,0 +1,37 @@
+
+body {
+    background: linear-gradient(270deg, #2ecc71, #27ae60, #16a085, #1abc9c, #0e3b43);
+    background-size: 300% 300%;
+    animation: gradientBG 50s ease infinite;
+}
+
+.modal-content h2 {
+    color: #16a085;
+}
+
+.close:hover {
+    color: #16a085;
+}
+
+.project-description h2,
+.project-description h3 {
+    color: #16a085;
+}
+
+.project-description a {
+    color: #16a085;
+}
+
+.app-logo {
+    background-color: #fff;
+    padding: 10px;
+}
+
+.modal {
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    max-height: 90%;
+    overflow: auto;
+}

@@ -1,0 +1,61 @@
+
+body {
+    background: linear-gradient(270deg, #d1bac1, #b4bcb6, #969d9b, #8fc5c5, #0e3b43);
+    background-size: 300% 300%;
+    animation: gradientBG 50s ease infinite;
+}
+
+.modal-content h2 {
+    color: #16a085;
+}
+
+.close:hover {
+    color: #16a085;
+}
+
+.project-description h2,
+.project-description h3 {
+    color: #16a085;
+}
+
+.project-description a {
+    color: #16a085;
+}
+
+.app-logo {
+    background-color: #fff;
+    padding: 10px;
+}
+
+.keypad-image {
+    text-align: center;
+    margin: 25px 0;
+}
+
+.keypad-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border: 3px solid #16a085;
+}
+
+.keypad-image figcaption {
+    margin-top: 12px;
+    color: #555;
+    font-style: italic;
+    font-size: 0.95em;
+}
+
+.modal {
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    max-height: 90%;
+    overflow: auto;
+}
+
+.project-description h3 {
+    margin-top: 20px;
+}
